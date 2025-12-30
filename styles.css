@@ -94,7 +94,7 @@ body {
 .btn-primary {
     background: var(--accent-color);
     border: none;
-    border-radius: 25px;
+    border-radius: 8px;
     padding: 12px 30px;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -108,7 +108,7 @@ body {
 }
 
 .btn-outline-light {
-    border-radius: 25px;
+    border-radius: 8px;
     padding: 8px 20px;
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
@@ -127,7 +127,7 @@ body {
 }
 
 .category-title {
-    color: var(--accent-color);
+    color: #000000;      /* titres en noir */
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 30px;
@@ -156,7 +156,7 @@ body {
 .category-selector {
     background: #ffffff;
     border: 1px solid #cccccc;
-    border-radius: 15px;
+    border-radius: 8px;
     color: var(--text-dark);
     padding: 10px 15px;
 }
@@ -177,7 +177,7 @@ body {
 .modal-content {
     background: #ffffff;
     border: none;
-    border-radius: 20px;
+    border-radius: 12px;
     color: var(--text-dark);
 }
 
@@ -194,7 +194,7 @@ body {
 .movie-detail-poster {
     width: 100%;
     max-width: 300px;
-    border-radius: 15px;
+    border-radius: 12px;
 }
 
 /* Spinner de chargement */
