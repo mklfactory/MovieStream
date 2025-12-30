@@ -61,7 +61,7 @@ body {
     max-width: 400px;
     height: 500px;
     object-fit: cover;
-    border-radius: 20px;
+   
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
@@ -98,7 +98,7 @@ body {
 .btn-primary {
     background: var(--accent-color);
     border: none;
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 12px 30px;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -112,7 +112,7 @@ body {
 }
 
 .btn-outline-light {
-    border-radius: 8px;
+    border-radius: 20px
     padding: 8px 20px;
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
@@ -131,7 +131,7 @@ body {
 }
 
 .category-title {
-    color: #000000;      /* titres en noir */
+    color: #000000;
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 30px;
@@ -181,7 +181,7 @@ body {
 .modal-content {
     background: #ffffff;
     border: none;
-    border-radius: 12px;
+
     color: var(--text-dark);
 }
 
