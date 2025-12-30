@@ -3,24 +3,26 @@
 /* Variables CSS */
 :root {
     --primary-color: #1a1a2e;
-    --secondary-color: #16213e;
+    --secondary-color: #f5f5f5;
     --accent-color: #e94560;
     --text-light: #ffffff;
-    --text-muted: #b8b8b8;
+    --text-muted: #6b6b6b;
+    --text-dark: #222222;
 }
 
 /* Styles généraux */
 body {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: var(--text-light);
+    background: #ffffff;
+    color: var(--text-dark);
     font-family: 'Arial', sans-serif;
     min-height: 100vh;
 }
 
 /* Navigation */
 .navbar {
-    background: rgba(26, 26, 46, 0.95) !important;
-    backdrop-filter: blur(10px);
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0;
+    backdrop-filter: none;
 }
 
 .navbar-brand {
@@ -31,7 +33,10 @@ body {
 
 /* Section Hero */
 .hero-section {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23333" width="1200" height="600"/><circle fill="%23555" cx="600" cy="300" r="200"/></svg>');
+    background: linear-gradient(
+        rgba(255,255,255,0.95),
+        rgba(245,245,245,0.95)
+    ), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f2f2f2" width="1200" height="600"/><circle fill="%23e0e0e0" cx="600" cy="300" r="200"/></svg>');
     background-size: cover;
     background-position: center;
     min-height: 60vh;
@@ -43,6 +48,7 @@ body {
 
 .hero-content {
     z-index: 2;
+    color: var(--text-dark);
 }
 
 .hero-poster {
@@ -51,31 +57,32 @@ body {
     height: 500px;
     object-fit: cover;
     border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 /* Cards de films */
 .movie-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: #ffffff;
     border-radius: 15px;
     overflow: hidden;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: none;
+    border: 1px solid #e5e5e5;
     cursor: pointer;
     height: 100%;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .movie-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(233, 69, 96, 0.3);
+    box-shadow: 0 20px 40px rgba(233, 69, 96, 0.2);
 }
 
 .movie-poster {
     width: 100%;
     height: 300px;
     object-fit: cover;
-    background: linear-gradient(45deg, #333, #555);
+    background: linear-gradient(45deg, #e0e0e0, #cfcfcf);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,6 +98,7 @@ body {
     padding: 12px 30px;
     font-weight: 600;
     transition: all 0.3s ease;
+    color: #ffffff;
 }
 
 .btn-primary:hover {
@@ -104,11 +112,13 @@ body {
     padding: 8px 20px;
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
+    background: transparent;
 }
 
 .btn-outline-light:hover {
     background: var(--accent-color);
     border-color: var(--accent-color);
+    color: #ffffff;
 }
 
 /* Sections de catégories */
@@ -121,7 +131,7 @@ body {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: none;
 }
 
 /* Carousel et grille de films */
@@ -144,35 +154,35 @@ body {
 
 /* Sélecteur de catégories */
 .category-selector {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #ffffff;
+    border: 1px solid #cccccc;
     border-radius: 15px;
-    color: var(--text-light);
+    color: var(--text-dark);
     padding: 10px 15px;
 }
 
 .category-selector:focus {
-    background: rgba(255, 255, 255, 0.15);
+    background: #ffffff;
     border-color: var(--accent-color);
-    color: var(--text-light);
+    color: var(--text-dark);
     box-shadow: 0 0 0 0.2rem rgba(233, 69, 96, 0.25);
 }
 
 .category-selector option {
-    background: var(--primary-color);
-    color: var(--text-light);
+    background: #ffffff;
+    color: var(--text-dark);
 }
 
 /* Styles de la modale */
 .modal-content {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: #ffffff;
     border: none;
     border-radius: 20px;
-    color: var(--text-light);
+    color: var(--text-dark);
 }
 
 .modal-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .modal-body {
@@ -180,6 +190,7 @@ body {
     overflow-y: auto;
 }
 
+/* Affiche détaillée */
 .movie-detail-poster {
     width: 100%;
     max-width: 300px;
@@ -253,10 +264,6 @@ body {
     }
 }
 
-.movie-card {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
 /* Styles pour les badges */
 .badge {
     font-size: 0.8rem;
@@ -284,7 +291,7 @@ body {
 }
 
 .modal-body::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: #f0f0f0;
     border-radius: 4px;
 }
 
