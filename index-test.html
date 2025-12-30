@@ -29,7 +29,13 @@
                         <p class="lead mb-4">
                             Un explorateur solitaire traverse la galaxie pour sauver une civilisation inconnue.
                         </p>
-                        <button class="btn btn-primary btn-lg me-3">
+                        <button class="btn btn-primary btn-lg me-3 movie-details-btn"
+                                data-title="Le Voyageur des Étoiles"
+                                data-genre="Science-fiction"
+                                data-year="2025"
+                                data-rating="9.1"
+                                data-summary="Un explorateur solitaire traverse la galaxie pour sauver une civilisation inconnue."
+                                data-poster="https://placehold.co/300x450?text=Voyageur">
                             Détails
                         </button>
                     </div>
@@ -44,20 +50,18 @@
 
     <div class="container mt-5 pt-5">
 
-        <!-- (Optionnel) Spinner – ici purement décoratif -->
-        <div id="loadingSpinner" class="loading-spinner d-none">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Chargement...</span>
-            </div>
-            <p class="mt-3">Chargement des films...</p>
-        </div>
-
         <!-- Catégorie 1 : Films les mieux notés -->
         <section class="category-section">
             <h2 class="category-title">Films les mieux notés</h2>
             <div class="movies-carousel">
                 <div class="movies-grid">
-                    <div class="movie-card">
+                    <div class="movie-card movie-details-btn"
+                         data-title="La Cité Invisible"
+                         data-genre="Thriller, SF"
+                         data-year="2024"
+                         data-rating="9.2"
+                         data-summary="Une enquête dans une métropole futuriste où les souvenirs sont marchandés."
+                         data-poster="https://placehold.co/300x450?text=Film+1">
                         <img src="https://placehold.co/300x450?text=Film+1" alt="Film 1" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">La Cité Invisible</h5>
@@ -67,7 +71,14 @@
                             </p>
                         </div>
                     </div>
-                    <div class="movie-card">
+
+                    <div class="movie-card movie-details-btn"
+                         data-title="Horizons Brisés"
+                         data-genre="Drame, Action"
+                         data-year="2023"
+                         data-rating="9.0"
+                         data-summary="Un pilote doit affronter son passé pour éviter une catastrophe mondiale."
+                         data-poster="https://placehold.co/300x450?text=Film+2">
                         <img src="https://placehold.co/300x450?text=Film+2" alt="Film 2" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">Horizons Brisés</h5>
@@ -77,7 +88,14 @@
                             </p>
                         </div>
                     </div>
-                    <div class="movie-card">
+
+                    <div class="movie-card movie-details-btn"
+                         data-title="Neige Écarlate"
+                         data-genre="Thriller"
+                         data-year="2022"
+                         data-rating="8.9"
+                         data-summary="Un thriller dans une station de ski coupée du monde par une tempête."
+                         data-poster="https://placehold.co/300x450?text=Film+3">
                         <img src="https://placehold.co/300x450?text=Film+3" alt="Film 3" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">Neige Écarlate</h5>
@@ -88,7 +106,6 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-outline-light show-more-btn">Voir plus</button>
             </div>
         </section>
 
@@ -97,7 +114,13 @@
             <h2 class="category-title">Action</h2>
             <div class="movies-carousel">
                 <div class="movies-grid">
-                    <div class="movie-card">
+                    <div class="movie-card movie-details-btn"
+                         data-title="Choc Urbain"
+                         data-genre="Action"
+                         data-year="2021"
+                         data-rating="8.7"
+                         data-summary="Courses-poursuites et cascades spectaculaires dans une mégalopole futuriste."
+                         data-poster="https://placehold.co/300x450?text=Action+1">
                         <img src="https://placehold.co/300x450?text=Action+1" alt="Action 1" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">Choc Urbain</h5>
@@ -106,7 +129,14 @@
                             </p>
                         </div>
                     </div>
-                    <div class="movie-card">
+
+                    <div class="movie-card movie-details-btn"
+                         data-title="Opération Minuit"
+                         data-genre="Action, Espionnage"
+                         data-year="2020"
+                         data-rating="8.5"
+                         data-summary="Un commando d’élite infiltre une base ennemie ultra sécurisée."
+                         data-poster="https://placehold.co/300x450?text=Action+2">
                         <img src="https://placehold.co/300x450?text=Action+2" alt="Action 2" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">Opération Minuit</h5>
@@ -115,7 +145,14 @@
                             </p>
                         </div>
                     </div>
-                    <div class="movie-card">
+
+                    <div class="movie-card movie-details-btn"
+                         data-title="Zone Rouge"
+                         data-genre="Action, Thriller"
+                         data-year="2019"
+                         data-rating="8.4"
+                         data-summary="Un agent secret traqué dans une ville en état de siège."
+                         data-poster="https://placehold.co/300x450?text=Action+3">
                         <img src="https://placehold.co/300x450?text=Action+3" alt="Action 3" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">Zone Rouge</h5>
@@ -125,7 +162,6 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-outline-light show-more-btn">Voir plus</button>
             </div>
         </section>
 
@@ -134,7 +170,13 @@
             <h2 class="category-title">Comédie</h2>
             <div class="movies-carousel">
                 <div class="movies-grid">
-                    <div class="movie-card">
+                    <div class="movie-card movie-details-btn"
+                         data-title="Coloc’ Galactique"
+                         data-genre="Comédie, SF"
+                         data-year="2022"
+                         data-rating="8.3"
+                         data-summary="Des extraterrestres partagent un appartement parisien beaucoup trop petit."
+                         data-poster="https://placehold.co/300x450?text=Comedie+1">
                         <img src="https://placehold.co/300x450?text=Comedie+1" alt="Comédie 1" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">Coloc’ Galactique</h5>
@@ -143,7 +185,14 @@
                             </p>
                         </div>
                     </div>
-                    <div class="movie-card">
+
+                    <div class="movie-card movie-details-btn"
+                         data-title="Le Mariage Improvisé"
+                         data-genre="Comédie romantique"
+                         data-year="2021"
+                         data-rating="8.1"
+                         data-summary="Deux inconnus doivent faire semblant d’être fiancés pour toucher un héritage."
+                         data-poster="https://placehold.co/300x450?text=Comedie+2">
                         <img src="https://placehold.co/300x450?text=Comedie+2" alt="Comédie 2" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">Le Mariage Improvisé</h5>
@@ -152,7 +201,14 @@
                             </p>
                         </div>
                     </div>
-                    <div class="movie-card">
+
+                    <div class="movie-card movie-details-btn"
+                         data-title="Panique au Bureau"
+                         data-genre="Comédie"
+                         data-year="2020"
+                         data-rating="8.0"
+                         data-summary="Une journée de télétravail tourne au chaos total en visioconférence."
+                         data-poster="https://placehold.co/300x450?text=Comedie+3">
                         <img src="https://placehold.co/300x450?text=Comedie+3" alt="Comédie 3" class="movie-poster">
                         <div class="p-3">
                             <h5 class="mb-1">Panique au Bureau</h5>
@@ -162,49 +218,12 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-outline-light show-more-btn">Voir plus</button>
             </div>
         </section>
 
-        <!-- Catégorie personnalisée (exemple statique) -->
-        <section class="category-section">
-            <div class="row align-items-center mb-4">
-                <div class="col-md-6">
-                    <h2 class="category-title">Catégorie personnalisée</h2>
-                </div>
-                <div class="col-md-6">
-                    <select class="form-select category-selector" disabled>
-                        <option>Science-fiction (exemple)</option>
-                    </select>
-                </div>
-            </div>
-            <div class="movies-carousel">
-                <div class="movies-grid">
-                    <div class="movie-card">
-                        <img src="https://placehold.co/300x450?text=SF+1" alt="SF 1" class="movie-poster">
-                        <div class="p-3">
-                            <h5 class="mb-1">Nébuleuse 9</h5>
-                            <p class="mb-0 small">
-                                Une mission d’exploration découvre un secret enfoui au cœur d’une nébuleuse.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="movie-card">
-                        <img src="https://placehold.co/300x450?text=SF+2" alt="SF 2" class="movie-poster">
-                        <div class="p-3">
-                            <h5 class="mb-1">Temps Fragmenté</h5>
-                            <p class="mb-0 small">
-                                Des voyageurs temporels se retrouvent coincés dans des lignes parallèles.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-outline-light show-more-btn">Voir plus</button>
-            </div>
-        </section>
     </div>
 
-    <!-- MODALE (optionnelle, pas reliée à des données dynamiques ici) -->
+    <!-- MODALE -->
     <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -215,22 +234,23 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <img src="https://placehold.co/300x450?text=Affiche" 
+                            <img id="modalMoviePoster"
+                                 src="https://placehold.co/300x450?text=Affiche"
                                  alt="Affiche du film" class="movie-detail-poster mb-3">
                         </div>
                         <div class="col-md-8">
-                            <h3 class="mb-3">Titre du film (exemple)</h3>
-                            <div>
-                                <p class="mb-1"><strong>Genre :</strong> Science-fiction</p>
-                                <p class="mb-1"><strong>Durée :</strong> 2h10</p>
-                                <p class="mb-1"><strong>Année :</strong> 2025</p>
+                            <h3 id="modalMovieTitle" class="mb-3">Titre du film (exemple)</h3>
+                            <div id="modalMovieDetails">
+                                <p class="mb-1"><strong>Genre :</strong> —</p>
+                                <p class="mb-1"><strong>Année :</strong> —</p>
+                                <p class="mb-1"><strong>Note IMDB :</strong> —</p>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-12">
                             <h5>Résumé</h5>
-                            <p>
+                            <p id="modalMovieSummary">
                                 Ceci est un exemple de résumé statique pour illustrer la modale de détails
                                 sans appel à une API externe.
                             </p>
@@ -241,8 +261,8 @@
         </div>
     </div>
 
-    <!-- uniquement Bootstrap, plus de script API -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-     <script src="script.js"></script>
+    <!-- Bootstrap + JS asynchrones (defer) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
