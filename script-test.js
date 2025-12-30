@@ -13,7 +13,7 @@ async function initModalSystem() {
     // Instance Bootstrap de la modale
     const bsModal = new bootstrap.Modal(modalElement);
 
-    // Tous les éléments qui doivent ouvrir la modale
+    // Les éléments qui doivent ouvrir la modale
     const detailTriggers = document.querySelectorAll(".movie-details-btn");
 
     detailTriggers.forEach(trigger => {
