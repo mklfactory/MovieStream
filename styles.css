@@ -18,21 +18,26 @@ body {
     min-height: 100vh;
 }
 
-/* Navigation */
+/* NAVBAR */
 .navbar {
-    background: #ffffff !important;
-    border-bottom: 1px solid #e0e0e0;
-    backdrop-filter: none;
+    background: #4b4b4b !important;  /* gris */
+    border-bottom: 1px solid #3a3a3a;
 }
 
 .navbar-brand {
     font-weight: 700;
-    color: var(--accent-color) !important;
     font-size: 1.5rem;
+    color: #ffffff !important;
+}
+
+.navbar-brand span {
+    color: #ffffff;
+    font-weight: 600;
 }
 
 /* Section Hero */
 .hero-section {
+    padding-top: 80px; /* pour compenser la navbar fixe */
     background: linear-gradient(
         rgba(255,255,255,0.95),
         rgba(245,245,245,0.95)
@@ -66,7 +71,6 @@ body {
     border-radius: 15px;
     overflow: hidden;
     transition: all 0.3s ease;
-    backdrop-filter: none;
     border: 1px solid #e5e5e5;
     cursor: pointer;
     height: 100%;
@@ -183,11 +187,6 @@ body {
 
 .modal-header {
     border-bottom: 1px solid #e5e5e5;
-}
-
-.modal-body {
-    max-height: 70vh;
-    overflow-y: auto;
 }
 
 /* Affiche détaillée */
