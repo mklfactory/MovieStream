@@ -179,3 +179,126 @@ body {
 
 /* Styles de la modale */
 .modal-content {
+    background: #ffffff;
+    border: none;
+    border-radius: 12px;
+    color: var(--text-dark);
+}
+
+.modal-header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Affiche détaillée */
+.movie-detail-poster {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 12px;
+}
+
+/* Spinner de chargement */
+.loading-spinner {
+    display: none;
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner-border {
+    color: var(--accent-color);
+}
+
+/* Design responsive */
+@media (max-width: 576px) {
+    .movies-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .movies-grid .movie-card:nth-child(n+3) {
+        display: none;
+    }
+    
+    .show-more-btn {
+        display: block;
+    }
+    
+    .category-title {
+        font-size: 1.5rem;
+    }
+    
+    .hero-poster {
+        max-width: 300px;
+        height: 400px;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 992px) {
+    .movies-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .movies-grid .movie-card:nth-child(n+5) {
+        display: none;
+    }
+    
+    .show-more-btn {
+        display: block;
+    }
+}
+
+@media (min-width: 993px) {
+    .movies-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+/* Animations et transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styles pour les badges */
+.badge {
+    font-size: 0.8rem;
+}
+
+/* Amélioration de l'accessibilité */
+.btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(233, 69, 96, 0.25);
+}
+
+.movie-card:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Styles pour les états de chargement */
+.movie-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Amélioration des scrollbars pour WebKit */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #d73651;
+}
