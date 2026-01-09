@@ -20,8 +20,8 @@
 
 <!-- HERO -->
 <section class="hero-section">
-    <h1>Meilleur film</h1>
-    <div class="hero-black-box-wrapper">
+    <div class="container hero-container">
+        <h1>Meilleur film</h1>
         <div class="hero-black-box">
             <h2 id="bestMovieTitle">Chargement...</h2>
             <p id="bestMovieDescription">Découvrez le film le mieux noté selon IMDB.</p>
@@ -34,40 +34,46 @@
 </section>
 
 <div class="container">
+
     <div id="loadingSpinner" class="spinner">
         <div class="spinner-circle"></div>
         <p>Chargement des films...</p>
     </div>
 
-    <!-- Catégorie : Top Rated -->
+    <!-- Catégories -->
     <section class="category-section">
         <h2>Films les mieux notés</h2>
         <div class="movies-grid" id="topRatedMovies"></div>
-        <button class="btn-see-more" id="showMoreTopRated">Voir plus</button>
+        <div class="see-more-container">
+            <button class="btn-see-more" data-target="topRatedMovies">Voir plus</button>
+        </div>
     </section>
 
-    <!-- Catégorie : Action -->
     <section class="category-section">
         <h2>Action</h2>
         <div class="movies-grid" id="actionMovies"></div>
-        <button class="btn-see-more" id="showMoreAction">Voir plus</button>
+        <div class="see-more-container">
+            <button class="btn-see-more" data-target="actionMovies">Voir plus</button>
+        </div>
     </section>
 
-    <!-- Catégorie : Comédie -->
     <section class="category-section">
         <h2>Comédie</h2>
         <div class="movies-grid" id="comedyMovies"></div>
-        <button class="btn-see-more" id="showMoreComedy">Voir plus</button>
+        <div class="see-more-container">
+            <button class="btn-see-more" data-target="comedyMovies">Voir plus</button>
+        </div>
     </section>
 
-    <!-- Catégorie personnalisée -->
     <section class="category-section">
         <h2>Catégorie Personnalisée</h2>
         <select id="categorySelector" class="category-selector">
             <option value="">Choisir une catégorie...</option>
         </select>
         <div class="movies-grid" id="customCategoryMovies"></div>
-        <button class="btn-see-more" id="showMoreCustom">Voir plus</button>
+        <div class="see-more-container">
+            <button class="btn-see-more" data-target="customCategoryMovies">Voir plus</button>
+        </div>
     </section>
 </div>
 
