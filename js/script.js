@@ -1,112 +1,105 @@
 const API_BASE = "http://127.0.0.1:8000/api/v1/titles/";
 
-// ==============================
-// MODALE
-// ==============================
 const modal = document.getElementById("movieModal");
-const modalClose = document.querySelector(".modal-close");
+const closeModalBtn = document.querySelector(".modal-close");
 
-// Fermer la modale
-modalClose.addEventListener("click", () => modal.style.display = "none");
-window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
-
-// Ouvrir la modale avec les infos du film
-async function openMovieModal(movieId) {
-    try {
-        const res = await fetch(`${API_BASE}${movieId}/`);
-        const movie = await res.json();
-        document.getElementById("modalMoviePoster").src = movie.image_url;
-        document.getElementById("modalMovieTitle").textContent = movie.title;
-        document.getElementById("modalMovieDetails").innerHTML = `
-            <p><strong>Année :</strong> ${movie.year}</p>
-            <p><strong>IMDb :</strong> ${movie.imdb_score}</p>
-            <p><strong>Genres :</strong> ${movie.genres.join(", ")}</p>`;
-        document.getElementById("modalMovieSummary").textContent = movie.description;
-        modal.style.display = "block";
-    } catch (err) {
-        console.error("Erreur modale :", err);
-        alert("Impossible de charger les détails du film.");
-    }
+async function fetchMovies(url) {
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.results || [];
 }
 
-// ==============================
-// Création des cartes films
-// ==============================
+// Afficher le meilleur film
+async function loadBestMovie() {
+    const movies = await fetchMovies(`${API_BASE}?sort_by=-imdb_score&page_size=1`);
+    const movie = movies[0];
+    document.getElementById("bestMovieTitle").textContent = movie.title;
+    document.getElementById("bestMovieDescription").textContent = movie.description;
+    document.getElementById("bestMoviePoster").src = movie.image_url;
+    document.getElementById("bestMoviePoster").classList.remove("d-none");
+    document.getElementById("bestMovieDetailsBtn").onclick = () => openMovieModal(movie);
+}
+
+// Crée une carte film
 function createMovieCard(movie) {
     const div = document.createElement("div");
-    div.classList.add("movie-card");
-    div.dataset.id = movie.id;
+    div.className = "movie-card";
 
-    div.innerHTML = `
-        <img src="${movie.image_url}" alt="${movie.title}">
-        <div class="overlay">
-            <h5>${movie.title}</h5>
-            <button class="details-btn">Détails</button>
-        </div>`;
+    const img = document.createElement("img");
+    img.src = movie.image_url;
+    img.alt = movie.title;
+    div.appendChild(img);
 
-    // Attacher l'événement Détails
-    div.querySelector(".details-btn").addEventListener("click", (e) => {
-        e.stopPropagation(); // éviter le click sur la carte
-        openMovieModal(movie.id);
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    const title = document.createElement("h5");
+    title.textContent = movie.title;
+    overlay.appendChild(title);
+
+    const detailsBtn = document.createElement("button");
+    detailsBtn.textContent = "Détails";
+    detailsBtn.className = "details-btn";
+    overlay.appendChild(detailsBtn);
+
+    div.appendChild(overlay);
+
+    detailsBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openMovieModal(movie);
     });
-
-    // Cliquer sur la carte ouvre aussi la modale
-    div.addEventListener("click", () => openMovieModal(movie.id));
+    div.addEventListener("click", () => openMovieModal(movie));
 
     return div;
 }
 
-// ==============================
-// Remplir une catégorie
-// ==============================
-async function loadCategory(categoryId, genre="", limit=6) {
-    const container = document.getElementById(categoryId);
-    container.innerHTML = "";
-    try {
-        const res = await fetch(`${API_BASE}?genre=${genre}&sort_by=-imdb_score&page_size=${limit}`);
-        const data = await res.json();
-        data.results.forEach(movie => {
-            container.appendChild(createMovieCard(movie));
-        });
-    } catch(err) { console.error(err); }
+// Charger catégorie
+async function loadCategory(category, elementId) {
+    let url = `${API_BASE}?sort_by=-imdb_score&page_size=6`;
+    if (category) url += `&genre=${category}`;
+    const movies = await fetchMovies(url);
+    const container = document.getElementById(elementId);
+    movies.forEach(movie => container.appendChild(createMovieCard(movie)));
 }
 
-// ==============================
-// Boutons Voir plus / Voir moins
-// ==============================
+// Modale
+async function openMovieModal(movie) {
+    try {
+        const movieId = movie.url ? movie.url.split("/").slice(-2)[0] : movie.id;
+        const res = await fetch(`${API_BASE}${movieId}/`);
+        if (!res.ok) throw new Error("Film introuvable");
+        const data = await res.json();
+
+        document.getElementById("modalMoviePoster").src = data.image_url;
+        document.getElementById("modalMovieTitle").textContent = data.title;
+        document.getElementById("modalMovieDetails").innerHTML = `
+            <p><strong>Année :</strong> ${data.year}</p>
+            <p><strong>IMDb :</strong> ${data.imdb_score}</p>
+            <p><strong>Genres :</strong> ${data.genres.join(", ")}</p>`;
+        document.getElementById("modalMovieSummary").textContent = data.description;
+
+        modal.style.display = "block";
+    } catch (err) {
+        console.error(err);
+        alert("Impossible de charger les détails du film.");
+    }
+}
+
+closeModalBtn.onclick = () => modal.style.display = "none";
+window.onclick = (event) => { if(event.target === modal) modal.style.display = "none"; };
+
+// Voir plus / Voir moins
 document.querySelectorAll(".btn-see-more").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const targetId = btn.dataset.target;
-        const grid = document.getElementById(targetId);
+    btn.addEventListener("click", e => {
+        const grid = e.target.previousElementSibling;
         grid.classList.toggle("show-all");
         btn.textContent = grid.classList.contains("show-all") ? "Voir moins" : "Voir plus";
     });
 });
 
-// ==============================
-// Charger le meilleur film
-// ==============================
-async function loadBestMovie() {
-    try {
-        const res = await fetch(`${API_BASE}?sort_by=-imdb_score&page_size=1`);
-        const data = await res.json();
-        const movie = data.results[0];
-
-        document.getElementById("bestMovieTitle").textContent = movie.title;
-        document.getElementById("bestMovieDescription").textContent = movie.description;
-        document.getElementById("bestMoviePoster").src = movie.image_url;
-
-        // Attacher bouton Détails
-        document.getElementById("bestMovieDetailsBtn").onclick = () => openMovieModal(movie.id);
-    } catch(err) {
-        console.error("Erreur meilleur film :", err);
-    }
-}
-
-// ==============================
 // Initialisation
-// ==============================
-loadBestMovie();
-loadCategory("topRatedMovies");
-loadCategory("actionMovies","Action");
-loadCategory("comedyMovies","Comedy");
+window.onload = async () => {
+    await loadBestMovie();
+    await loadCategory("", "topRatedMovies");
+    await loadCategory("Action", "actionMovies");
+    await loadCategory("Comedy", "comedyMovies");
+};
