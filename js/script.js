@@ -5,9 +5,12 @@ const API_BASE = "http://127.0.0.1:8000/api/v1/titles/";
 // ==============================
 const modal = document.getElementById("movieModal");
 const modalClose = document.querySelector(".modal-close");
+
+// Fermer la modale
 modalClose.addEventListener("click", () => modal.style.display = "none");
 window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
 
+// Ouvrir la modale avec les infos du film
 async function openMovieModal(movieId) {
     try {
         const res = await fetch(`${API_BASE}${movieId}/`);
@@ -20,7 +23,10 @@ async function openMovieModal(movieId) {
             <p><strong>Genres :</strong> ${movie.genres.join(", ")}</p>`;
         document.getElementById("modalMovieSummary").textContent = movie.description;
         modal.style.display = "block";
-    } catch (err) { console.error("Erreur modale :", err); }
+    } catch (err) {
+        console.error("Erreur modale :", err);
+        alert("Impossible de charger les détails du film.");
+    }
 }
 
 // ==============================
@@ -30,17 +36,28 @@ function createMovieCard(movie) {
     const div = document.createElement("div");
     div.classList.add("movie-card");
     div.dataset.id = movie.id;
+
     div.innerHTML = `
         <img src="${movie.image_url}" alt="${movie.title}">
         <div class="overlay">
             <h5>${movie.title}</h5>
-            <button>Détails</button>
+            <button class="details-btn">Détails</button>
         </div>`;
+
+    // Attacher l'événement Détails
+    div.querySelector(".details-btn").addEventListener("click", (e) => {
+        e.stopPropagation(); // éviter le click sur la carte
+        openMovieModal(movie.id);
+    });
+
+    // Cliquer sur la carte ouvre aussi la modale
+    div.addEventListener("click", () => openMovieModal(movie.id));
+
     return div;
 }
 
 // ==============================
-// REMPLISSAGE GRID ET MODALE
+// Remplir une catégorie
 // ==============================
 async function loadCategory(categoryId, genre="", limit=6) {
     const container = document.getElementById(categoryId);
@@ -49,28 +66,13 @@ async function loadCategory(categoryId, genre="", limit=6) {
         const res = await fetch(`${API_BASE}?genre=${genre}&sort_by=-imdb_score&page_size=${limit}`);
         const data = await res.json();
         data.results.forEach(movie => {
-            const card = createMovieCard(movie);
-            container.appendChild(card);
+            container.appendChild(createMovieCard(movie));
         });
-        attachCardEvents(categoryId);
     } catch(err) { console.error(err); }
 }
 
 // ==============================
-// ATTACHE LES ÉVÉNEMENTS AUX CARTES
-// ==============================
-function attachCardEvents(containerId) {
-    const container = document.getElementById(containerId);
-    container.querySelectorAll(".movie-card").forEach(card => {
-        const movieId = card.dataset.id;
-        const btn = card.querySelector("button");
-        if (btn) btn.onclick = (e) => { e.stopPropagation(); openMovieModal(movieId); };
-        card.onclick = () => openMovieModal(movieId);
-    });
-}
-
-// ==============================
-// BOUTONS VOIR PLUS / VOIR MOINS
+// Boutons Voir plus / Voir moins
 // ==============================
 document.querySelectorAll(".btn-see-more").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -82,22 +84,27 @@ document.querySelectorAll(".btn-see-more").forEach(btn => {
 });
 
 // ==============================
-// CHARGEMENT INITIAL
+// Charger le meilleur film
 // ==============================
 async function loadBestMovie() {
     try {
         const res = await fetch(`${API_BASE}?sort_by=-imdb_score&page_size=1`);
         const data = await res.json();
         const movie = data.results[0];
+
         document.getElementById("bestMovieTitle").textContent = movie.title;
         document.getElementById("bestMovieDescription").textContent = movie.description;
         document.getElementById("bestMoviePoster").src = movie.image_url;
+
+        // Attacher bouton Détails
         document.getElementById("bestMovieDetailsBtn").onclick = () => openMovieModal(movie.id);
-    } catch(err) { console.error(err); }
+    } catch(err) {
+        console.error("Erreur meilleur film :", err);
+    }
 }
 
 // ==============================
-// INITIALISATION
+// Initialisation
 // ==============================
 loadBestMovie();
 loadCategory("topRatedMovies");
