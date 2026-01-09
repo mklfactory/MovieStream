@@ -1,14 +1,8 @@
 const API_BASE = "http://127.0.0.1:8000/api/v1/titles/";
+const API_GENRES = "http://127.0.0.1:8000/api/v1/genres/";
 
 const modal = document.getElementById("movieModal");
 const closeModalBtn = document.querySelector(".modal-close");
-
-async function fetchMovies(url) {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Erreur API");
-    const data = await res.json();
-    return data.results || [];
-}
 
 // MODALE
 async function openMovieModal(movie) {
@@ -37,7 +31,7 @@ async function openMovieModal(movie) {
 closeModalBtn.onclick = () => modal.style.display = "none";
 window.onclick = (event) => { if(event.target === modal) modal.style.display = "none"; };
 
-// Crée carte film avec overlay + bouton fonctionnel
+// Création carte film
 function createMovieCard(movie) {
     const div = document.createElement("div");
     div.className = "movie-card";
@@ -49,6 +43,7 @@ function createMovieCard(movie) {
 
     const overlay = document.createElement("div");
     overlay.className = "overlay";
+
     const title = document.createElement("h5");
     title.textContent = movie.title;
     overlay.appendChild(title);
@@ -68,17 +63,12 @@ function createMovieCard(movie) {
     return div;
 }
 
-// Charger meilleure catégorie
-async function loadCategory(category, elementId, page_size = 6) {
-    try {
-        let url = `${API_BASE}?sort_by=-imdb_score&page_size=${page_size}`;
-        if (category) url += `&genre=${category}`;
-        const movies = await fetchMovies(url);
-        const container = document.getElementById(elementId);
-        movies.forEach(movie => container.appendChild(createMovieCard(movie)));
-    } catch (err) {
-        console.error(err);
-    }
+// Charger films
+async function fetchMovies(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Erreur API");
+    const data = await res.json();
+    return data.results || [];
 }
 
 // Meilleur film
@@ -97,19 +87,51 @@ async function loadBestMovie() {
     }
 }
 
-// Voir plus / Voir moins
-document.addEventListener("click", (e) => {
-    if(e.target.classList.contains("btn-see-more")) {
-        const grid = e.target.previousElementSibling;
-        grid.classList.toggle("show-all");
-        e.target.textContent = grid.classList.contains("show-all") ? "Voir moins" : "Voir plus";
+// Charger les genres dynamiquement
+async function loadGenres() {
+    try {
+        const res = await fetch(API_GENRES);
+        if (!res.ok) throw new Error("Impossible de récupérer les genres");
+        const genresData = await res.json();
+
+        const container = document.getElementById("genresContainer");
+        container.innerHTML = ""; // Supprimer le spinner
+
+        for (const genre of genresData.results) {
+            const section = document.createElement("section");
+            section.className = "category-section";
+
+            const h2 = document.createElement("h2");
+            h2.textContent = genre.name;
+            section.appendChild(h2);
+
+            const grid = document.createElement("div");
+            grid.className = "movies-grid";
+            section.appendChild(grid);
+
+            const btn = document.createElement("button");
+            btn.className = "btn-see-more";
+            btn.textContent = "Voir plus";
+            section.appendChild(btn);
+
+            btn.addEventListener("click", () => {
+                grid.classList.toggle("show-all");
+                btn.textContent = grid.classList.contains("show-all") ? "Voir moins" : "Voir plus";
+            });
+
+            container.appendChild(section);
+
+            // Charger 6 films par genre
+            const movies = await fetchMovies(`${API_BASE}?sort_by=-imdb_score&page_size=6&genre=${genre.name}`);
+            movies.forEach(movie => grid.appendChild(createMovieCard(movie)));
+        }
+    } catch (err) {
+        console.error(err);
     }
-});
+}
 
 // INITIALISATION
 window.onload = async () => {
     await loadBestMovie();
-    await loadCategory("", "topRatedMovies");
-    await loadCategory("Action", "actionMovies");
-    await loadCategory("Comedy", "comedyMovies");
+    await loadGenres();
 };
