@@ -4,7 +4,6 @@
 const API_URL = "http://127.0.0.1:8000/api/v1/titles/";
 const CATEGORY_URL = "http://127.0.0.1:8000/api/v1/genres/";
 
-
 // =========================
 // FETCH UTILITAIRE
 // =========================
@@ -14,13 +13,11 @@ async function fetchJSON(url) {
     return response.json();
 }
 
-
 // =============================
 // 1️⃣ MEILLEUR FILM (Hero Section)
 // =============================
 async function loadBestMovie() {
     const data = await fetchJSON(`${API_URL}?sort_by=-imdb_score&page=1`);
-
     const bestMovie = data.results[0];
 
     document.getElementById("bestMovieTitle").textContent = bestMovie.title;
@@ -32,7 +29,6 @@ async function loadBestMovie() {
         openMovieModal(bestMovie.id)
     );
 }
-
 
 // =============================
 // 2️⃣ AFFICHER UNE LISTE DE FILMS
@@ -49,14 +45,21 @@ async function loadMovies(containerId, url, limit = 6) {
 
     movies.push(...page1.results, ...page2.results);
 
+    // Générer le HTML
+    let html = "";
     movies.slice(0, limit).forEach(movie => {
-        container.innerHTML += createMovieCard(movie);
-        document.getElementById(`movie-${movie.id}`).addEventListener("click", () =>
-            openMovieModal(movie.id)
-        );
+        html += createMovieCard(movie);
+    });
+    container.innerHTML = html;
+
+    // Event delegation pour toutes les cartes
+    container.querySelectorAll(".movie-card").forEach(card => {
+        card.addEventListener("click", () => {
+            const movieId = card.id.replace("movie-", "");
+            openMovieModal(movieId);
+        });
     });
 }
-
 
 // =============================
 // 3️⃣ GÉNÉRATION HTML D’UNE CARTE FILM
@@ -71,7 +74,6 @@ function createMovieCard(movie) {
         </div>
     `;
 }
-
 
 // =============================
 // 4️⃣ OUVERTURE DE LA MODALE
@@ -95,7 +97,6 @@ async function openMovieModal(movieId) {
     new bootstrap.Modal(document.getElementById("movieModal")).show();
 }
 
-
 // =============================
 // 5️⃣ CATÉGORIES PRÉDÉFINIES
 // =============================
@@ -104,7 +105,6 @@ function loadPredefinedCategories() {
     loadMovies("actionMovies", `${API_URL}?genre=Action&sort_by=-imdb_score`);
     loadMovies("comedyMovies", `${API_URL}?genre=Comedy&sort_by=-imdb_score`);
 }
-
 
 // =============================
 // 6️⃣ CHARGER TOUTES LES CATÉGORIES
@@ -127,7 +127,6 @@ async function loadCategoriesSelector() {
     });
 }
 
-
 // ======================================
 // 7️⃣ GESTION DES BOUTONS "VOIR PLUS"
 // ======================================
@@ -142,12 +141,11 @@ function setupShowMoreButtons() {
     buttons.forEach(b => {
         document.getElementById(b.id).addEventListener("click", () => {
             const selectorValue = document.getElementById("categorySelector")?.value;
-            const url = b.dynamic ? `${API_URL}?genre=${selectorValue}` : b.url;
+            const url = b.dynamic ? `${API_URL}?genre=${selectorValue}&sort_by=-imdb_score` : b.url;
             loadMovies(b.target, url, 12); // passe de 6 → 12 films
         });
     });
 }
-
 
 // =============================
 // 8️⃣ INITIALISATION GLOBALE
