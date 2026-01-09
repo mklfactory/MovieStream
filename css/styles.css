@@ -1,6 +1,4 @@
-/* =========================
-   BASE
-   ========================= */
+/* BASE */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #ffffff;
@@ -9,11 +7,7 @@ body {
     padding: 0;
 }
 
-a { text-decoration: none; color: inherit; }
-
-/* =========================
-   HERO
-   ========================= */
+/* HERO */
 .hero-section {
     padding: 80px 0 40px;
     background-color: #ffffff;
@@ -26,58 +20,60 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-custom-red:hover { background-color: #e00a0a; color: #fff; }
 
-/* =========================
-   CATÉGORIES
-   ========================= */
+/* CATÉGORIES */
 .category-section { margin-bottom: 50px; }
 .category-title { font-size: 1.8rem; margin-bottom: 20px; }
 
-/* =========================
-   GRID FILMS
-   ========================= */
+/* GRID FILMS */
 .movies-grid { display: grid; gap: 15px; }
 
-/* =========================
-   CARTE FILM
-   ========================= */
+/* CARTE FILM */
 .movie-card {
     position: relative;
     cursor: pointer;
+    overflow: hidden;
 }
-.movie-card img { width: 100%; height: auto; display: block; }
+.movie-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-/* Calque titre */
-.movie-card h5 {
+/* CALQUE TITRE + BOUTON */
+.movie-card .overlay {
     position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    text-align: center;
-    color: #fff;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: rgba(0,0,0,0.5);
-    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    gap: 5px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.movie-card .overlay h5 {
+    color: #ffffff;
+    margin: 0;
+    text-align: center;
     font-size: 1rem;
 }
 
-/* Bouton "Détails" pour les cartes */
-.movie-card .btn-detail {
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
+.movie-card .overlay button {
     background-color: #000000;
     color: #ffffff;
     border: none;
     padding: 5px 10px;
+    border-radius: 8px;
     font-size: 0.9rem;
-    border-radius: 3px;
 }
-.movie-card .btn-detail:hover { background-color: #333333; }
+.movie-card .overlay button:hover { background-color: #333333; }
 
-/* =========================
-   RESPONSIVE GRID
-   ========================= */
+/* RESPONSIVE GRID */
 @media (max-width: 576px) {
     .movies-grid { grid-template-columns: 1fr; }
     .movie-card:nth-child(n+3) { display: none; }
@@ -94,9 +90,7 @@ a { text-decoration: none; color: inherit; }
     .movies-grid.show-all .movie-card { display: block; }
 }
 
-/* =========================
-   BOUTONS "Voir plus"
-   ========================= */
+/* BOUTONS "Voir plus" */
 .btn-see-more {
     margin-top: 10px;
     display: block;
@@ -112,7 +106,5 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-see-more:hover { background-color: #e00a0a; color: #fff; }
 
-/* =========================
-   MODALE
-   ========================= */
+/* MODALE */
 .movie-detail-poster { width: 100%; height: auto; display: block; object-fit: cover; }
