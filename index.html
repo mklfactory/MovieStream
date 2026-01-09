@@ -1,85 +1,74 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JustStreamIt - Les Meilleurs Films</title>
-<link href="css/styles.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>JustStreamIt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar">
-    <div class="container">
-        <a class="logo" href="#">
-            <img src="img/logo.png" alt="Logo" width="70" height="52">
-            <span>Vidéos à la demande</span>
-        </a>
+    <div class="container navbar-content">
+        <img src="img/logo.png" alt="Logo" width="70">
+        <span class="navbar-title">Vidéos à la demande</span>
     </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero-section">
-    <div class="container hero-container">
-        <div class="hero-text">
-            <h1 id="bestMovieTitle">Chargement...</h1>
-            <p id="bestMovieDescription">Découvrez le film le mieux noté selon IMDB.</p>
-            <button id="bestMovieDetailsBtn" class="btn-red">Détails</button>
-        </div>
-        <div class="hero-image">
-            <img id="bestMoviePoster" src="" alt="Meilleur Film" class="d-none">
+    <div class="container">
+
+        <!-- TITRE EXTERIEUR -->
+        <h1 class="hero-title">Meilleur film</h1>
+
+        <!-- CADRE NOIR -->
+        <div class="hero-frame">
+
+            <div class="hero-text">
+                <h2 id="bestMovieTitle">Chargement...</h2>
+                <p id="bestMovieDescription">
+                    Découvrez le film le mieux noté selon IMDB.
+                </p>
+                <button id="bestMovieDetailsBtn" class="btn-red">
+                    Détails
+                </button>
+            </div>
+
+            <div class="hero-image">
+                <img id="bestMoviePoster" src="" alt="Meilleur film">
+            </div>
+
         </div>
     </div>
 </section>
 
+<!-- CONTENU -->
 <div class="container">
 
-    <div id="loadingSpinner" class="spinner">
-        <div class="spinner-circle"></div>
-        <p>Chargement des films...</p>
-    </div>
-
-    <!-- Catégories -->
+    <!-- CATÉGORIE -->
     <section class="category-section">
         <h2>Films les mieux notés</h2>
-        <div class="movies-grid" id="topRatedMovies"></div>
+
+        <div class="movies-grid">
+            <!-- movie-card injectées en JS -->
+        </div>
+
         <button class="btn-see-more">Voir plus</button>
     </section>
 
-    <section class="category-section">
-        <h2>Action</h2>
-        <div class="movies-grid" id="actionMovies"></div>
-        <button class="btn-see-more">Voir plus</button>
-    </section>
-
-    <section class="category-section">
-        <h2>Comédie</h2>
-        <div class="movies-grid" id="comedyMovies"></div>
-        <button class="btn-see-more">Voir plus</button>
-    </section>
-
-    <section class="category-section">
-        <h2>Catégorie Personnalisée</h2>
-        <select id="categorySelector" class="category-selector">
-            <option value="">Choisir une catégorie...</option>
-        </select>
-        <div class="movies-grid" id="customCategoryMovies"></div>
-        <button class="btn-see-more">Voir plus</button>
-    </section>
 </div>
 
 <!-- MODALE -->
-<div id="movieModal" class="modal">
+<div class="modal" id="movieModal">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
+
         <div class="modal-body">
-            <div class="modal-left">
-                <img id="modalMoviePoster" src="" alt="Affiche du film">
-            </div>
-            <div class="modal-right">
+            <img id="modalMoviePoster" alt="">
+            <div>
                 <h3 id="modalMovieTitle"></h3>
-                <div id="modalMovieDetails"></div>
-                <h4>Résumé</h4>
                 <p id="modalMovieSummary"></p>
             </div>
         </div>
