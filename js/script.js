@@ -88,4 +88,4 @@ async function init(){
     document.getElementById("loadingSpinner").style.display="none";
 }
 
-init();
+    init();
