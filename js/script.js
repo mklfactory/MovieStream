@@ -35,8 +35,10 @@ async function loadMovies(containerId, url, limit = 6) {
         html += `
         <div class="movie-card" id="movie-${movie.id}">
             <img src="${movie.image_url}" alt="${movie.title}">
-            <h5>${movie.title}</h5>
-            <button class="btn-detail" onclick="openMovieModal(${movie.id})">Détails</button>
+            <div class="overlay">
+                <h5>${movie.title}</h5>
+                <button onclick="openMovieModal(${movie.id})">Détails</button>
+            </div>
         </div>`;
     });
 
