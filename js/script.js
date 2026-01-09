@@ -1,91 +1,116 @@
-const API_URL = "http://127.0.0.1:8000/api/v1/titles/";
-const CATEGORY_URL = "http://127.0.0.1:8000/api/v1/genres/";
+/*********************************
+ * CONFIG
+ *********************************/
+const API_URL = "http://localhost:8000/api/movies/";
 
-async function fetchJSON(url) {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Erreur fetch : "+url);
-    return res.json();
-}
+/*********************************
+ * UTILITAIRES
+ *********************************/
+function createMovieCard(movie) {
+    const card = document.createElement("div");
+    card.classList.add("movie-card");
 
-async function loadBestMovie() {
-    const data = await fetchJSON(`${API_URL}?sort_by=-imdb_score&page=1`);
-    const best = data.results[0];
-    document.getElementById("bestMovieTitle").textContent = best.title;
-    document.getElementById("bestMovieDescription").textContent = best.description || "Aucune description";
-    const poster = document.getElementById("bestMoviePoster");
-    poster.src = best.image_url;
-    poster.classList.remove("d-none");
-    document.getElementById("bestMovieDetailsBtn").onclick = () => openModal(best.id);
-}
-
-async function loadMovies(containerId,url,limit=6){
-    const container = document.getElementById(containerId);
-    container.innerHTML = "";
-    let movies = [];
-    const p1 = await fetchJSON(url+"&page=1");
-    const p2 = await fetchJSON(url+"&page=2");
-    movies.push(...p1.results,...p2.results);
-
-    movies.slice(0,limit).forEach(m=>{
-        const card = document.createElement("div");
-        card.className="movie-card";
-        card.innerHTML=`<img src="${m.image_url}" alt="${m.title}">
-            <div class="overlay">
-                <h5>${m.title}</h5>
-                <button>Détails</button>
-            </div>`;
-        card.querySelector("button").onclick = ()=>openModal(m.id);
-        container.appendChild(card);
-    });
-}
-
-async function openModal(id){
-    const m = await fetchJSON(`${API_URL}${id}`);
-    document.getElementById("modalMovieTitle").textContent = m.title;
-    document.getElementById("modalMoviePoster").src = m.image_url;
-    document.getElementById("modalMovieSummary").textContent = m.long_description || m.description;
-    document.getElementById("modalMovieDetails").innerHTML = `
-        <p><strong>Genre :</strong> ${m.genres.join(", ")}</p>
-        <p><strong>Année :</strong> ${m.year}</p>
-        <p><strong>IMDB :</strong> ${m.imdb_score}</p>
-        <p><strong>Réalisateur(s) :</strong> ${m.directors.join(", ")}</p>
-        <p><strong>Acteurs :</strong> ${m.actors.join(", ")}</p>
-        <p><strong>Durée :</strong> ${m.duration} min</p>
+    card.innerHTML = `
+        <img src="${movie.image_url}" alt="${movie.title}">
+        <div class="overlay">
+            <h5>${movie.title}</h5>
+            <button>Détails</button>
+        </div>
     `;
-    document.getElementById("movieModal").style.display="block";
+
+    card.querySelector("button").addEventListener("click", (e) => {
+        e.stopPropagation();
+        openModal(movie);
+    });
+
+    card.addEventListener("click", () => openModal(movie));
+
+    return card;
 }
 
-document.querySelector(".modal-close").onclick = ()=>{ document.getElementById("movieModal").style.display="none"; }
-window.onclick = (e)=>{ if(e.target.id=="movieModal") e.target.style.display="none"; }
+/*********************************
+ * MODALE
+ *********************************/
+const modal = document.getElementById("movieModal");
+const modalClose = document.querySelector(".modal-close");
 
-async function loadCategoriesSelector(){
-    const data = await fetchJSON(CATEGORY_URL);
-    const sel = document.getElementById("categorySelector");
-    data.results.forEach(cat=> sel.innerHTML+=`<option value="${cat.name}">${cat.name}</option>`);
-    sel.onchange = ()=> {
-        if(sel.value) loadMovies("customCategoryMovies",`${API_URL}?genre=${sel.value}&sort_by=-imdb_score`);
-    }
+function openModal(movie) {
+    document.getElementById("modalMoviePoster").src = movie.image_url;
+    document.getElementById("modalMovieTitle").textContent = movie.title;
+    document.getElementById("modalMovieSummary").textContent =
+        movie.description || "Aucune description disponible.";
+
+    modal.style.display = "block";
 }
 
-function setupShowMoreButtons(){
-    document.querySelectorAll(".btn-see-more").forEach(b=>{
-        b.onclick = ()=>{
-            const grid = b.previousElementSibling;
-            grid.classList.toggle("show-all");
-            b.textContent = grid.classList.contains("show-all") ? "Voir moins" : "Voir plus";
-        }
+modalClose.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+});
+
+/*********************************
+ * VOIR PLUS / VOIR MOINS
+ *********************************/
+document.querySelectorAll(".btn-see-more").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const grid = btn.previousElementSibling;
+        grid.classList.toggle("show-all");
+
+        btn.textContent = grid.classList.contains("show-all")
+            ? "Voir moins"
+            : "Voir plus";
+    });
+});
+
+/*********************************
+ * HERO – MEILLEUR FILM
+ *********************************/
+async function loadBestMovie() {
+    const response = await fetch(`${API_URL}?ordering=-imdb_score&page_size=1`);
+    const data = await response.json();
+    const movie = data.results[0];
+
+    document.getElementById("bestMovieTitle").textContent = movie.title;
+    document.getElementById("bestMovieDescription").textContent =
+        movie.description;
+
+    const poster = document.getElementById("bestMoviePoster");
+    poster.src = movie.image_url;
+    poster.style.display = "block";
+
+    document.getElementById("bestMovieDetailsBtn").onclick = () =>
+        openModal(movie);
+}
+
+/*********************************
+ * CATÉGORIES
+ *********************************/
+async function loadCategory(containerId, params) {
+    const response = await fetch(`${API_URL}${params}`);
+    const data = await response.json();
+    const container = document.getElementById(containerId);
+
+    container.innerHTML = "";
+
+    data.results.slice(0, 6).forEach((movie) => {
+        container.appendChild(createMovieCard(movie));
     });
 }
 
-async function init(){
-    document.getElementById("loadingSpinner").style.display="block";
+/*********************************
+ * INITIALISATION
+ *********************************/
+async function init() {
     await loadBestMovie();
-    loadMovies("topRatedMovies",`${API_URL}?sort_by=-imdb_score`);
-    loadMovies("actionMovies",`${API_URL}?genre=Action&sort_by=-imdb_score`);
-    loadMovies("comedyMovies",`${API_URL}?genre=Comedy&sort_by=-imdb_score`);
-    loadCategoriesSelector();
-    setupShowMoreButtons();
-    document.getElementById("loadingSpinner").style.display="none";
+
+    await loadCategory("topRatedMovies", "?ordering=-imdb_score");
+    await loadCategory("actionMovies", "?genres=Action");
+    await loadCategory("comedyMovies", "?genres=Comedy");
+
+    document.getElementById("loadingSpinner")?.remove();
 }
 
-    init();
+init();
