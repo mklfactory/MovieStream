@@ -1,18 +1,17 @@
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
 }
 
 body {
-    background: white;
-    color: black;
+    margin: 0;
+    background: #fff;
+    color: #000;
 }
 
 header {
     padding: 20px;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #000;
 }
 
 main {
@@ -20,14 +19,11 @@ main {
 }
 
 /* HERO */
-.hero h1 {
-    margin-bottom: 10px;
-}
-
 .hero-container {
     display: flex;
-    flex-wrap: wrap;
     gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .hero-black-box {
@@ -40,7 +36,7 @@ main {
     width: 300px;
 }
 
-/* BUTTONS */
+/* BUTTON */
 .btn-red {
     background: #FA0B0B;
     color: white;
@@ -49,41 +45,35 @@ main {
     cursor: pointer;
 }
 
-.btn-center {
-    display: flex;
-    justify-content: center;
+.btn-toggle {
+    display: block;
+    margin: 15px auto;
+}
+
+/* MOVIES GRID */
+.movies {
+    display: grid;
+    gap: 15px;
     margin-top: 15px;
 }
 
-/* CATEGORIES */
-.category {
-    margin-top: 40px;
-}
-
-.movies {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-    overflow: hidden;
-}
-
+/* MOVIE CARD */
 .movie-card {
     position: relative;
 }
 
 .movie-card img {
     width: 100%;
-    display: block;
 }
 
 /* OVERLAY */
 .overlay {
     position: absolute;
-    top: 15%;
+    top: 20%;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     color: white;
     padding: 10px;
     text-align: center;
@@ -93,12 +83,11 @@ main {
     background: black;
     color: white;
     border: none;
-    padding: 5px;
-    margin-top: 5px;
+    padding: 5px 10px;
     cursor: pointer;
 }
 
-/* MODAL */
+/* MODALE */
 .modal {
     position: fixed;
     inset: 0;
@@ -115,7 +104,7 @@ main {
 .modal-content {
     background: white;
     padding: 20px;
-    max-width: 500px;
+    max-width: 700px;
     width: 90%;
 }
 
@@ -125,17 +114,19 @@ main {
 
 #closeModal {
     float: right;
-    cursor: pointer;
     font-size: 24px;
+    cursor: pointer;
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-    .hero-container {
-        flex-direction: column;
-    }
+@media (max-width: 767px) {
+    .movies { grid-template-columns: repeat(2, 1fr); }
+}
 
-    .hero-image img {
-        width: 100%;
-    }
+@media (min-width: 768px) and (max-width: 1023px) {
+    .movies { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 1024px) {
+    .movies { grid-template-columns: repeat(6, 1fr); }
 }

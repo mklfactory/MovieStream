@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>JustStreamIt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -14,38 +14,48 @@
 
 <main>
 
-    <!-- HERO -->
+    <!-- MEILLEUR FILM -->
     <section class="hero">
-        <h1>Meilleur film</h1>
-
+        <h2>Meilleur film</h2>
         <div class="hero-container">
             <div class="hero-black-box">
-                <h2 id="bestMovieTitle">Chargement…</h2>
+                <h3 id="bestMovieTitle">Chargement…</h3>
                 <p id="bestMovieDescription"></p>
                 <button id="bestMovieDetailsBtn" class="btn-red">Détails</button>
             </div>
-
             <div class="hero-image">
-                <img id="bestMoviePoster" alt="Meilleur film">
+                <img id="bestMoviePoster" alt="Affiche du meilleur film">
             </div>
         </div>
     </section>
 
-    <!-- CATEGORIES -->
+    <!-- FILMS LES MIEUX NOTÉS -->
     <section class="category">
         <h2>Films les mieux notés</h2>
         <div class="movies" id="topRated"></div>
-        <div class="btn-center">
-            <button class="btn-red" data-target="topRated">Voir plus</button>
-        </div>
+        <button class="btn-red btn-toggle" data-target="topRated">Voir plus</button>
     </section>
 
+    <!-- CATÉGORIE 1 -->
     <section class="category">
         <h2>Action</h2>
         <div class="movies" id="action"></div>
-        <div class="btn-center">
-            <button class="btn-red" data-target="action">Voir plus</button>
-        </div>
+        <button class="btn-red btn-toggle" data-target="action">Voir plus</button>
+    </section>
+
+    <!-- CATÉGORIE 2 -->
+    <section class="category">
+        <h2>Drama</h2>
+        <div class="movies" id="drama"></div>
+        <button class="btn-red btn-toggle" data-target="drama">Voir plus</button>
+    </section>
+
+    <!-- AUTRES -->
+    <section class="category">
+        <h2>Autres</h2>
+        <select id="genreSelect"></select>
+        <div class="movies" id="others"></div>
+        <button class="btn-red btn-toggle" data-target="others">Voir plus</button>
     </section>
 
 </main>
@@ -53,10 +63,10 @@
 <!-- MODALE -->
 <div id="modal" class="modal hidden">
     <div class="modal-content">
-        <span id="closeModal">×</span>
-        <h2 id="modalTitle"></h2>
+        <span id="closeModal">&times;</span>
         <img id="modalPoster">
-        <p id="modalInfo"></p>
+        <h2 id="modalTitle"></h2>
+        <div id="modalDetails"></div>
     </div>
 </div>
 
