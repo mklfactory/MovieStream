@@ -1,16 +1,12 @@
-/* ==============================
-   RESET ET BASE
-   ============================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* =========================
+   RESET & BASE
+   ========================= */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #121212;
+    background-color: #0d0d0d;
     color: #fff;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -18,164 +14,136 @@ a {
     color: inherit;
 }
 
-button {
-    cursor: pointer;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* ==============================
-   NAVBAR
-   ============================== */
-.navbar {
-    background-color: #1f1f1f;
-    padding: 0.5rem 1rem;
-}
-
-.navbar-brand span {
-    font-size: 1.2rem;
-    color: #ffcc00;
-}
-
-/* ==============================
+/* =========================
    HERO SECTION
-   ============================== */
+   ========================= */
 .hero-section {
-    padding: 5rem 1rem 3rem;
-    background: linear-gradient(90deg, #1f1f1f 0%, #000 100%);
-    display: flex;
-    align-items: center;
+    padding: 100px 0 50px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/hero-bg.jpg') center/cover no-repeat;
+    color: #fff;
 }
 
-.hero-section h1 {
-    color: #ffcc00;
+.hero-content h1 {
+    font-size: 2.5rem;
 }
 
-.hero-section .hero-poster {
+.hero-poster {
     max-width: 100%;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.7);
 }
 
-/* ==============================
+/* =========================
    CATEGORY SECTION
-   ============================== */
+   ========================= */
 .category-section {
-    margin-bottom: 4rem;
+    margin-bottom: 50px;
 }
 
 .category-title {
+    margin-bottom: 20px;
     font-size: 1.8rem;
-    margin-bottom: 1rem;
     color: #ffcc00;
 }
 
-/* ==============================
-   MOVIES GRID
-   ============================== */
-.movies-grid {
-    display: grid;
-    gap: 1rem;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
+.movies-carousel {
+    position: relative;
 }
 
+.movies-grid {
+    display: grid;
+    gap: 15px;
+}
+
+/* =========================
+   MOVIE CARD
+   ========================= */
 .movie-card {
-    background-color: #1f1f1f;
-    border-radius: 8px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .movie-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 204, 0, 0.5);
 }
 
-.movie-poster {
+.movie-card img {
     width: 100%;
     display: block;
 }
 
 .movie-card h5 {
-    text-align: center;
-    padding: 0.5rem;
+    margin: 10px;
     font-size: 1rem;
+    text-align: center;
 }
 
-/* ==============================
+/* =========================
    RESPONSIVE GRID
-   ============================== */
-/* Mobile: 2 films visibles */
+   ========================= */
+
+/* Mobile (≤ 576px) */
 @media (max-width: 576px) {
     .movies-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .movie-card:nth-child(n+3) {
+        display: none;
+    }
+    .movies-grid.show-all .movie-card {
+        display: block;
+    }
+}
+
+/* Small Tablets (≥ 577px and ≤ 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .movies-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-height: calc(2 * 250px + 1rem);
+    }
+    .movie-card:nth-child(n+5) {
+        display: none;
+    }
+    .movies-grid.show-all .movie-card {
+        display: block;
     }
 }
 
-/* Tablette: 4 films visibles */
-@media (min-width: 577px) and (max-width: 992px) {
+/* Desktop (≥ 769px) */
+@media (min-width: 769px) {
     .movies-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-height: calc(2 * 250px + 1rem);
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .movie-card:nth-child(n+7) {
+        display: none;
+    }
+    .movies-grid.show-all .movie-card {
+        display: block;
     }
 }
 
-/* Desktop: 6 films visibles */
-@media (min-width: 993px) {
-    .movies-grid {
-        grid-template-columns: repeat(6, 1fr);
-        max-height: calc(1 * 250px + 1rem);
-    }
-}
-
-/* ==============================
-   SPINNER
-   ============================== */
-.loading-spinner {
-    text-align: center;
-    padding: 3rem 0;
-}
-
-.spinner-border {
-    width: 3rem;
-    height: 3rem;
-    color: #ffcc00;
-}
-
-/* ==============================
-   MODALE
-   ============================== */
-.modal-content {
-    background-color: #1f1f1f;
-    color: #fff;
-    border-radius: 10px;
-}
-
-.modal-header {
-    border-bottom: 1px solid #333;
-}
-
-.modal-body h3 {
-    color: #ffcc00;
-}
-
-.movie-detail-poster {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-/* ==============================
-   BOUTON "VOIR PLUS"
-   ============================== */
+/* =========================
+   BOUTONS
+   ========================= */
 .show-more-btn {
+    margin-top: 15px;
     display: block;
     width: 100%;
     text-align: center;
-    margin-top: 1rem;
-    border-color: #ffcc00;
+    background-color: transparent;
+    border: 2px solid #ffcc00;
     color: #ffcc00;
-    transition: all 0.3s ease;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 8px;
+    transition: all 0.3s;
 }
 
 .show-more-btn:hover {
@@ -183,10 +151,23 @@ button {
     color: #000;
 }
 
-/* ==============================
-   CLASSE POUR MONTRER PLUS DE FILMS
-   ============================== */
-.movies-grid.show-all {
-    max-height: 2000px; /* assez pour tout afficher */
-    transition: max-height 0.8s ease-in-out;
+/* =========================
+   LOADING SPINNER
+   ========================= */
+.loading-spinner {
+    margin: 50px 0;
 }
+
+/* =========================
+   MODAL FILM
+   ========================= */
+.movie-detail-poster {
+    width: 100%;
+    border-radius: 10px;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+/* =========================
+   ADAPTATION BUTTON “Voir plus” POUR LE JS
+   ========================= */
