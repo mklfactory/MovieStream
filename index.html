@@ -1,74 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>JustStreamIt</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JustStreamIt - Les Meilleurs Films</title>
+<link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar">
-    <div class="container navbar-content">
-        <img src="img/logo.png" alt="Logo" width="70">
-        <span class="navbar-title">Vidéos à la demande</span>
+    <div class="container">
+        <a class="logo" href="#"><img src="img/logo.png" alt="Logo" width="70" height="52"></a>
+        <span class="title">Vidéos à la demande</span>
     </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero-section">
-    <div class="container">
-
-        <!-- TITRE EXTERIEUR -->
-        <h1 class="hero-title">Meilleur film</h1>
-
-        <!-- CADRE NOIR -->
-        <div class="hero-frame">
-
-            <div class="hero-text">
-                <h2 id="bestMovieTitle">Chargement...</h2>
-                <p id="bestMovieDescription">
-                    Découvrez le film le mieux noté selon IMDB.
-                </p>
-                <button id="bestMovieDetailsBtn" class="btn-red">
-                    Détails
-                </button>
-            </div>
-
-            <div class="hero-image">
-                <img id="bestMoviePoster" src="" alt="Meilleur film">
-            </div>
-
+    <div class="container hero-container">
+        <h1>Meilleur film</h1>
+        <div class="hero-black-box">
+            <h2 id="bestMovieTitle">Chargement...</h2>
+            <p id="bestMovieDescription">Découvrez le film le mieux noté selon IMDB.</p>
+            <button id="bestMovieDetailsBtn" class="btn-red">Détails</button>
+        </div>
+        <div class="hero-image">
+            <img id="bestMoviePoster" src="" alt="Meilleur Film">
         </div>
     </div>
 </section>
 
-<!-- CONTENU -->
 <div class="container">
 
-    <!-- CATÉGORIE -->
+    <div id="loadingSpinner" class="spinner">
+        <div class="spinner-circle"></div>
+        <p>Chargement des films...</p>
+    </div>
+
+    <!-- Catégories -->
     <section class="category-section">
         <h2>Films les mieux notés</h2>
-
-        <div class="movies-grid">
-            <!-- movie-card injectées en JS -->
-        </div>
-
-        <button class="btn-see-more">Voir plus</button>
+        <div class="movies-grid" id="topRatedMovies"></div>
+        <button class="btn-see-more" data-target="topRatedMovies">Voir plus</button>
     </section>
 
+    <section class="category-section">
+        <h2>Action</h2>
+        <div class="movies-grid" id="actionMovies"></div>
+        <button class="btn-see-more" data-target="actionMovies">Voir plus</button>
+    </section>
+
+    <section class="category-section">
+        <h2>Comédie</h2>
+        <div class="movies-grid" id="comedyMovies"></div>
+        <button class="btn-see-more" data-target="comedyMovies">Voir plus</button>
+    </section>
+
+    <section class="category-section">
+        <h2>Catégorie Personnalisée</h2>
+        <select id="categorySelector" class="category-selector">
+            <option value="">Choisir une catégorie...</option>
+        </select>
+        <div class="movies-grid" id="customCategoryMovies"></div>
+        <button class="btn-see-more" data-target="customCategoryMovies">Voir plus</button>
+    </section>
 </div>
 
 <!-- MODALE -->
-<div class="modal" id="movieModal">
+<div id="movieModal" class="modal">
     <div class="modal-content">
         <span class="modal-close">&times;</span>
-
         <div class="modal-body">
-            <img id="modalMoviePoster" alt="">
-            <div>
+            <div class="modal-left">
+                <img id="modalMoviePoster" src="" alt="Affiche du film">
+            </div>
+            <div class="modal-right">
                 <h3 id="modalMovieTitle"></h3>
+                <div id="modalMovieDetails"></div>
+                <h4>Résumé</h4>
                 <p id="modalMovieSummary"></p>
             </div>
         </div>
