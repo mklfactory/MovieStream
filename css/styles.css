@@ -1,5 +1,5 @@
 /* =========================
-   RESET & BASE
+   BASE & RESET
    ========================= */
 body {
     font-family: 'Arial', sans-serif;
@@ -9,58 +9,31 @@ body {
     padding: 0;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+a { text-decoration: none; color: inherit; }
+.container { max-width: 1200px; margin: 0 auto; }
 
 /* =========================
-   HERO SECTION
+   HERO
    ========================= */
 .hero-section {
     padding: 100px 0 50px;
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/hero-bg.jpg') center/cover no-repeat;
     color: #fff;
 }
-
-.hero-content h1 {
-    font-size: 2.5rem;
-}
-
-.hero-poster {
-    max-width: 100%;
-    border-radius: 10px;
-}
+.hero-content h1 { font-size: 2.5rem; }
+.hero-poster { max-width: 100%; border-radius: 10px; }
 
 /* =========================
-   CATEGORY SECTION
+   CATÉGORIES
    ========================= */
-.category-section {
-    margin-bottom: 50px;
-}
+.category-section { margin-bottom: 50px; }
+.category-title { margin-bottom: 20px; font-size: 1.8rem; color: #ffcc00; }
 
-.category-title {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #ffcc00;
-}
-
-.movies-carousel {
-    position: relative;
-}
-
-.movies-grid {
-    display: grid;
-    gap: 15px;
-}
+.movies-carousel { position: relative; }
+.movies-grid { display: grid; gap: 15px; }
 
 /* =========================
-   MOVIE CARD
+   CARTE FILM
    ========================= */
 .movie-card {
     background-color: #1a1a1a;
@@ -69,64 +42,32 @@ a {
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .movie-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(255, 204, 0, 0.5);
 }
-
-.movie-card img {
-    width: 100%;
-    display: block;
-}
-
-.movie-card h5 {
-    margin: 10px;
-    font-size: 1rem;
-    text-align: center;
-}
+.movie-card img { width: 100%; display: block; }
+.movie-card h5 { margin: 10px; font-size: 1rem; text-align: center; }
 
 /* =========================
    RESPONSIVE GRID
    ========================= */
-
-/* Mobile (≤ 576px) */
 @media (max-width: 576px) {
-    .movies-grid {
-        grid-template-columns: repeat(1, 1fr);
-    }
-    .movie-card:nth-child(n+3) {
-        display: none;
-    }
-    .movies-grid.show-all .movie-card {
-        display: block;
-    }
+    .movies-grid { grid-template-columns: 1fr; }
+    .movie-card:nth-child(n+3) { display: none; }
+    .movies-grid.show-all .movie-card { display: block; }
 }
 
-/* Small Tablets (≥ 577px and ≤ 768px) */
 @media (min-width: 577px) and (max-width: 768px) {
-    .movies-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .movie-card:nth-child(n+5) {
-        display: none;
-    }
-    .movies-grid.show-all .movie-card {
-        display: block;
-    }
+    .movies-grid { grid-template-columns: repeat(2, 1fr); }
+    .movie-card:nth-child(n+5) { display: none; }
+    .movies-grid.show-all .movie-card { display: block; }
 }
 
-/* Desktop (≥ 769px) */
 @media (min-width: 769px) {
-    .movies-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .movie-card:nth-child(n+7) {
-        display: none;
-    }
-    .movies-grid.show-all .movie-card {
-        display: block;
-    }
+    .movies-grid { grid-template-columns: repeat(3, 1fr); }
+    .movie-card:nth-child(n+7) { display: none; }
+    .movies-grid.show-all .movie-card { display: block; }
 }
 
 /* =========================
@@ -145,29 +86,17 @@ a {
     padding: 8px;
     transition: all 0.3s;
 }
-
 .show-more-btn:hover {
     background-color: #ffcc00;
     color: #000;
 }
 
 /* =========================
-   LOADING SPINNER
+   SPINNER
    ========================= */
-.loading-spinner {
-    margin: 50px 0;
-}
+.loading-spinner { margin: 50px 0; }
 
 /* =========================
-   MODAL FILM
+   MODALE
    ========================= */
-.movie-detail-poster {
-    width: 100%;
-    border-radius: 10px;
-    max-height: 400px;
-    object-fit: cover;
-}
-
-/* =========================
-   ADAPTATION BUTTON “Voir plus” POUR LE JS
-   ========================= */
+.movie-detail-poster { width: 100%; border-radius: 10px; max-height: 400px; object-fit: cover; }
