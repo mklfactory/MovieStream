@@ -13,12 +13,13 @@ body {
 
 /* NAVBAR */
 .navbar {
-    background-color: #fff;
+    background-color: #61787F;
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
 }
 .logo img { vertical-align: middle; }
 .logo span { font-weight: bold; margin-left: 10px; color: #000; }
+.title {color: #fff;}
 
 /* HERO */
 .hero-section {
