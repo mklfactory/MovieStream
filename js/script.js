@@ -10,15 +10,29 @@ async function fetchJSON(url) {
 async function loadBestMovie() {
     const data = await fetchJSON(`${API_URL}?min_year=2000&ordering=-imdb_score&page=1`);
     const best = data.results[0];
+
     document.getElementById("bestMovieTitle").textContent = best.title;
-    console.log(best);
-    document.getElementById("bestMovieDescription").textContent = best.description || "Découvrez le film le mieux noté selon IMDB.";
+
     const poster = document.getElementById("bestMoviePoster");
     poster.src = best.image_url;
     poster.classList.remove("d-none");
-    document.getElementById("bestMovieDetailsBtn").onclick = () => openModal(best.id);
-}
 
+    // description provisoire (ou texte par défaut)
+    document.getElementById("bestMovieDescription").textContent =
+        best.description || "Découvrez le film le mieux noté selon IMDB.";
+
+    // bouton détails avec l'id du film
+    document.getElementById("bestMovieDetailsBtn").onclick = () => openModal(best.id);
+
+    // récupération des détails complets via l'id pour avoir la vraie description
+    try {
+        const fullMovie = await fetchJSON(`${API_URL}${best.id}`);
+        document.getElementById("bestMovieDescription").textContent =
+            fullMovie.description || document.getElementById("bestMovieDescription").textContent;
+    } catch (error) {
+        console.error("Erreur chargement description détaillée :", error);
+    }
+}
 async function loadMovies(containerId,url,limit=6){
     const container = document.getElementById(containerId);
     container.innerHTML = "";
