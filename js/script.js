@@ -11,7 +11,7 @@ async function loadBestMovie() {
     const data = await fetchJSON(`${API_URL}?min_year=2000&ordering=-imdb_score&page=1`);
     const best = data.results[0];
     document.getElementById("bestMovieTitle").textContent = best.title;
-    document.getElementById("bestMovieDescription").textContent = best.description || "Aucune description";
+    document.getElementById("bestMovieDescription").textContent = best.description || "Découvrez le film le mieux noté selon IMDB.";
     const poster = document.getElementById("bestMoviePoster");
     poster.src = best.image_url;
     poster.classList.remove("d-none");
