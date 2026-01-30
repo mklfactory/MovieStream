@@ -8,7 +8,7 @@ async function fetchJSON(url) {
 }
 
 async function loadBestMovie() {
-    const data = await fetchJSON(`${API_URL}?sort_by=-imdb_score&page=1`);
+    const data = await fetchJSON(`${API_URL}?min_year=2000&ordering=-imdb_score&page=1`);
     const best = data.results[0];
     document.getElementById("bestMovieTitle").textContent = best.title;
     document.getElementById("bestMovieDescription").textContent = best.description || "Aucune description";
@@ -81,8 +81,8 @@ async function init(){
     document.getElementById("loadingSpinner").style.display="block";
     await loadBestMovie();
     loadMovies("topRatedMovies",`${API_URL}?sort_by=-imdb_score`);
-    loadMovies("actionMovies",`${API_URL}?genre=Action&sort_by=-imdb_score`);
-    loadMovies("comedyMovies",`${API_URL}?genre=Comedy&sort_by=-imdb_score`);
+    loadMovies("actionMovies",`${API_URL}?genre=Action&min_year=2000&ordering=-imdb_score`);
+    loadMovies("comedyMovies",`${API_URL}?genre=Comedy&min_year=2000&ordering=-imdb_score`);
     loadCategoriesSelector();
     setupShowMoreButtons();
     document.getElementById("loadingSpinner").style.display="none";
